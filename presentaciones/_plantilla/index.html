@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Presentación base</title>
+
+  <!-- Fuentes locales (sin conexión externa) -->
+  <link rel="stylesheet" href="../shared/css/fonts.css">
+
+  <!-- Estilos y navegación COMPARTIDOS -->
+  <link rel="stylesheet" href="../shared/css/deck.css?v=20261006-print">
+</head>
+<!-- Opcional en <body>: data-logo="indra-group" (logo abajo a la izquierda) · data-badge="center|none" (badge de autor) -->
+<body>
+
+  <div class="author-badge" data-no-version>Presentación base</div>
+  <div class="slide-counter"><span class="current">1</span> / <span class="total">0</span></div>
+
+  <!-- ============================================================ 1 · Portada -->
+  <section class="slide slide--cover">
+    <div class="slide-inner">
+      <p class="small" style="letter-spacing:0.2em;text-transform:uppercase;font-weight:700;">Cliente · 2026</p>
+      <div class="spacer"></div>
+      <h1>Presentación base</h1>
+      <div class="diamond-rule"><span>◆</span></div>
+      <h2 style="color:var(--secondary);font-weight:400;font-style:italic;">Catálogo de visualizaciones disponibles</h2>
+      <div class="spacer"></div>
+      <p class="small">Nombre del ponente · Equipo</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ 2 · Statement -->
+  <section class="slide slide--statement">
+    <div class="slide-inner">
+      <h2 style="color:var(--text);">Una frase que plantea el problema.</h2>
+      <div class="diamond-rule"><span>◆</span></div>
+      <p style="font-size:var(--h3-size);color:var(--crimson);font-weight:700;">Una frase que remata la idea.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ 3 · Sección -->
+  <section class="slide slide--section">
+    <div class="slide-inner">
+      <div class="roman">Parte I</div>
+      <div class="spacer-sm"></div>
+      <h2>Titular de la parte</h2>
+      <div class="diamond-rule"><span>◆</span></div>
+      <p style="font-size:var(--h3-size);font-style:italic;color:var(--crimson);">Una línea sobre de qué trata</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ 4 · Lista de puntos -->
+  <section class="slide">
+    <div class="slide-inner">
+      <span class="tag tag--solid">Lista</span>
+      <h2 class="underlined">Un titular que afirma algo</h2>
+      <p class="small">Una línea de contexto.</p>
+      <div class="spacer-sm"></div>
+      <div class="bullets">
+        <p class="small"><span class="num"><strong class="crimson">1</strong></span><span class="dot">·</span><strong>Primera idea.</strong> Explicación breve.</p>
+        <p class="small"><span class="num"><strong class="crimson">2</strong></span><span class="dot">·</span><strong>Segunda idea.</strong> Explicación breve.</p>
+        <p class="small"><span class="num"><strong class="crimson">3</strong></span><span class="dot">·</span><strong>Tercera idea.</strong> Explicación breve.</p>
+      </div>
+      <p class="small fragment" style="margin-top:0.7rem;font-style:italic;color:var(--secondary);">Remate que aparece al avanzar.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ 5 · Tarjetas en rejilla -->
+  <section class="slide">
+    <div class="slide-inner">
+      <h2 class="underlined">Tres tarjetas en rejilla</h2>
+      <p class="small">Con 4 hijos, la rejilla pasa sola a 2×2.</p>
+      <div class="spacer-sm"></div>
+      <div class="grid-3">
+        <div class="card"><span class="tag">Etiqueta</span><h3>Concepto A</h3><p class="small">Descripción corta del concepto.</p><p class="small" style="font-style:italic;color:var(--secondary);">Ejemplo: caso concreto.</p></div>
+        <div class="card"><span class="tag">Etiqueta</span><h3>Concepto B</h3><p class="small">Descripción corta del concepto.</p><p class="small" style="font-style:italic;color:var(--secondary);">Ejemplo: caso concreto.</p></div>
+        <div class="card"><span class="tag">Etiqueta</span><h3>Concepto C</h3><p class="small">Descripción corta del concepto.</p><p class="small" style="font-style:italic;color:var(--secondary);">Ejemplo: caso concreto.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 6 · Comparativa -->
+  <section class="slide">
+    <div class="slide-inner">
+      <h2 class="underlined">Antes frente a después</h2>
+      <p class="small">Comparativa de dos enfoques.</p>
+      <div class="spacer-sm"></div>
+      <div class="compare">
+        <div class="panel panel--muted">
+          <h4>Enfoque actual</h4>
+          <ul>
+            <li>Primer rasgo</li>
+            <li>Segundo rasgo</li>
+            <li>Tercer rasgo</li>
+          </ul>
+        </div>
+        <div class="panel panel--accent">
+          <h4 class="crimson">Enfoque propuesto</h4>
+          <ul>
+            <li>Primer rasgo</li>
+            <li>Segundo rasgo</li>
+            <li>Tercer rasgo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 7 · Pasos -->
+  <section class="slide">
+    <div class="slide-inner">
+      <h2 class="underlined">Un proceso en pasos</h2>
+      <p class="small">Secuencia numerada de acciones.</p>
+      <div class="spacer-sm"></div>
+      <div class="steps steps--center">
+        <div class="step"><span class="step-label"><strong>Definir</strong> — el objetivo y los criterios.</span></div>
+        <div class="step"><span class="step-label"><strong>Construir</strong> — la primera versión.</span></div>
+        <div class="step"><span class="step-label"><strong>Verificar</strong> — contra los criterios.</span></div>
+        <div class="step"><span class="step-label"><strong>Entregar</strong> — y recoger feedback.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 8 · Tabla -->
+  <section class="slide">
+    <div class="slide-inner">
+      <h2 class="underlined">Una tabla de referencia</h2>
+      <p class="small">Para glosarios y equivalencias.</p>
+      <div class="spacer-sm"></div>
+      <table class="deck-table">
+        <tr><th>Concepto</th><th>Qué es</th><th>Ejemplo</th></tr>
+        <tr><td><strong>Elemento A</strong></td><td>Definición breve del elemento.</td><td>Caso de uso</td></tr>
+        <tr><td><strong>Elemento B</strong></td><td>Definición breve del elemento.</td><td>Caso de uso</td></tr>
+        <tr><td><strong>Elemento C</strong></td><td>Definición breve del elemento.</td><td>Caso de uso</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 9 · Diagrama de flujo SVG -->
+  <section class="slide">
+    <div class="slide-inner">
+      <h2 class="underlined">Un diagrama de flujo</h2>
+      <p class="small">Cajas y flechas en SVG, con tokens de color.</p>
+      <div class="spacer-sm"></div>
+      <div class="flow">
+        <svg viewBox="0 0 1000 200" role="img" aria-label="Entrada, proceso y resultado conectados por flechas">
+          <defs>
+            <marker id="s9-a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--secondary)"/></marker>
+            <marker id="s9-ac" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--crimson)"/></marker>
+          </defs>
+
+          <rect x="20" y="60" width="240" height="70" rx="5" fill="#fff" stroke="var(--border)" stroke-width="1.25"/>
+          <text x="140" y="92" text-anchor="middle" fill="var(--text)" style="font-size:13px;font-weight:600;">Entrada</text>
+          <text x="140" y="112" text-anchor="middle" fill="var(--secondary)" style="font-size:11px;">datos de partida</text>
+
+          <path d="M260,95 L380,95" fill="none" stroke="var(--secondary)" stroke-width="1.25" marker-end="url(#s9-a)"/>
+
+          <rect x="380" y="60" width="240" height="70" rx="5" fill="#fff" stroke="var(--crimson)" stroke-width="1.75"/>
+          <text x="500" y="92" text-anchor="middle" fill="var(--text)" style="font-size:13px;font-weight:600;">Proceso</text>
+          <text x="500" y="112" text-anchor="middle" fill="var(--secondary)" style="font-size:11px;">la pieza destacada</text>
+
+          <path d="M620,95 L740,95" fill="none" stroke="var(--crimson)" stroke-width="1.25" marker-end="url(#s9-ac)"/>
+
+          <rect x="740" y="60" width="240" height="70" rx="5" fill="var(--accent-light)" stroke="var(--crimson)" stroke-width="1.25"/>
+          <text x="860" y="92" text-anchor="middle" fill="var(--text)" style="font-size:13px;font-weight:600;">Resultado</text>
+          <text x="860" y="112" text-anchor="middle" fill="var(--secondary)" style="font-size:11px;">salida verificada</text>
+
+          <text x="500" y="175" text-anchor="middle" fill="var(--secondary)" style="font-size:12px;font-style:italic;">Pie del diagrama con la lectura principal.</text>
+        </svg>
+      </div>
+      <div class="spacer-sm"></div>
+      <div class="anatomy-stamp">
+        <span class="chip"><b>ENTRADA</b><span class="val">lo que llega</span></span>
+        <span class="chip"><b>PROCESO</b><span class="val">lo que se hace</span></span>
+        <span class="chip"><b>RESULTADO</b><span class="val">lo que sale</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 10 · Capas anidadas SVG -->
+  <section class="slide">
+    <div class="slide-inner">
+      <h2 class="underlined">Un diagrama de capas</h2>
+      <p class="small">Cómo encajan unos conceptos dentro de otros.</p>
+      <div class="spacer-sm"></div>
+      <div class="flow">
+        <svg viewBox="0 0 900 260" role="img" aria-label="Capa exterior que contiene una capa intermedia y dos piezas internas">
+          <rect x="25" y="15" width="850" height="230" rx="8" fill="none" stroke="var(--border)" stroke-width="1.25"/>
+          <text x="45" y="38" fill="var(--secondary)" style="font-family:var(--font-mono);font-size:11px;">CAPA EXTERIOR · el contexto global</text>
+
+          <rect x="50" y="52" width="800" height="175" rx="7" fill="var(--accent-light)" stroke="var(--crimson)" stroke-width="1.25"/>
+          <text x="70" y="74" fill="var(--crimson)" style="font-family:var(--font-mono);font-size:11px;">CAPA INTERMEDIA · el motor</text>
+
+          <rect x="80" y="95" width="360" height="110" rx="6" fill="#fff" stroke="var(--border)" stroke-width="1.25"/>
+          <text x="260" y="145" text-anchor="middle" fill="var(--text)" style="font-size:13px;font-weight:600;">Pieza A</text>
+          <text x="260" y="165" text-anchor="middle" fill="var(--secondary)" style="font-size:11px;">núcleo</text>
+
+          <rect x="460" y="95" width="360" height="110" rx="6" fill="#fff" stroke="var(--border)" stroke-width="1.25"/>
+          <text x="640" y="145" text-anchor="middle" fill="var(--text)" style="font-size:13px;font-weight:600;">Pieza B</text>
+          <text x="640" y="165" text-anchor="middle" fill="var(--secondary)" style="font-size:11px;">núcleo</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 11 · Código -->
+  <section class="slide">
+    <div class="slide-inner">
+      <h2 class="underlined">Un bloque de código</h2>
+      <p class="small">Dos paneles: texto y código.</p>
+      <div class="spacer-sm"></div>
+      <div class="compare">
+        <div class="panel">
+          <p class="mono small">Ejemplo de configuración:</p>
+          <pre><code>nombre: ejemplo
+version: 1
+pasos:
+  - definir
+  - construir</code></pre>
+        </div>
+        <div class="panel panel--accent">
+          <h4 class="crimson">Qué hace</h4>
+          <ul>
+            <li>Declara el nombre y la versión</li>
+            <li>Lista los pasos en orden</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 12 · Sustitución por pasos -->
+  <section class="slide">
+    <div class="slide-inner">
+      <h2 class="underlined">Un paso que sustituye a otro</h2>
+      <p class="small">El segundo bloque ocupa el hueco del primero al avanzar.</p>
+      <div class="spacer-sm"></div>
+      <div class="swap">
+        <div><div class="card"><strong>Antes</strong><br>Descripción de la situación inicial.</div></div>
+        <div class="fragment"><div class="card"><strong>Después</strong><br>Descripción de la situación final.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 13 · Imagen -->
+  <section class="slide">
+    <div class="slide-inner">
+      <h2 class="underlined">Una imagen con borde</h2>
+      <p class="small">Guarda las imágenes en <span class="mono">img/</span> dentro de la deck.</p>
+      <div class="spacer-sm"></div>
+      <!-- <img class="bordered" src="img/captura.png" alt="Descripción de la captura"> -->
+      <p class="small muted">Sustituye este texto por <span class="mono">&lt;img class="bordered" src="img/…"&gt;</span>.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ 14 · Cierre -->
+  <section class="slide slide--cover">
+    <div class="slide-inner">
+      <h1>Gracias</h1>
+      <div class="diamond-rule"><span>◆</span></div>
+      <p class="small">Nombre del ponente</p>
+      <div class="spacer-sm"></div>
+      <p class="small" style="font-style:italic;">Fuentes: …</p>
+    </div>
+  </section>
+
+  <script src="../shared/js/deck.js?v=20261006-print"></script>
+</body>
+</html>

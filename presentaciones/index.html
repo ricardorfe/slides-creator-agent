@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Presentaciones</title>
+  <link rel="stylesheet" href="shared/css/fonts.css">
+  <style>
+    :root {
+      --bg: #f6f8f8; --text: #0d2e38; --secondary: #5d7178;
+      --crimson: #0a6e87; --border: #d7dede;
+      --accent-light: #0a6e8710;
+      --font-sans: "DM Sans", system-ui, sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0; min-height: 100vh; color: var(--text);
+      font-family: var(--font-sans);
+      display: flex; flex-direction: column; align-items: center;
+      padding: clamp(1.8rem, 6vh, 3.4rem) 1.5rem clamp(1.6rem, 5vh, 3rem);
+      background:
+        radial-gradient(58vw 58vw at 12% -8%, #0a6e871f, transparent 60%),
+        radial-gradient(50vw 50vw at 100% 108%, #0a6e8714, transparent 55%),
+        var(--bg);
+      background-attachment: fixed;
+      position: relative;
+    }
+    /* textura de puntos muy sutil */
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 26px 26px;
+      -webkit-mask-image: radial-gradient(80% 70% at 50% 30%, #000 0%, transparent 75%);
+              mask-image: radial-gradient(80% 70% at 50% 30%, #000 0%, transparent 75%);
+      opacity: 0.5; 
+    }
+
+    .wrap { position: relative; z-index: 1; width: 100%; max-width: 820px; }
+
+    /* ---------- Cabecera ---------- */
+    header { text-align: center; margin-bottom: clamp(1.4rem, 4vh, 2.2rem); }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem; margin: 0;
+      letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700;
+      font-size: 0.68rem; color: var(--crimson);
+      font-family: var(--font-mono);
+    }
+    .eyebrow::before { content: "◆"; font-size: 0.5rem; }
+    h1 {
+      font-size: clamp(1.9rem, 4.4vw, 2.8rem); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.05; margin: 0.5rem 0 0.45rem;
+    }
+    .subtitle {
+      color: var(--secondary); font-size: 0.92rem;
+      font-style: italic; max-width: 520px; margin: 0 auto;
+    }
+
+    /* ---------- Lista ---------- */
+    .list { display: flex; flex-direction: column; gap: 0.45rem; }
+    .list[hidden] { display: none; }
+
+    /* ---------- Tarjeta de charla ---------- */
+    .talk {
+      position: relative; overflow: hidden;
+      background: rgba(255,255,255,0.72);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      border: 1px solid var(--border); border-radius: 10px;
+      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+    /* barra de acento a la izquierda */
+    .talk::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: var(--crimson); transform: scaleY(0.3); transform-origin: center;
+      transition: transform .16s ease; z-index: 1;
+    }
+    .talk:hover {
+      transform: translateY(-2px);
+      border-color: #0a6e8759;
+      box-shadow: 0 10px 24px rgba(10,110,135,0.13);
+    }
+    .talk:hover::before, .talk.is-open::before { transform: scaleY(1); }
+    .talk.is-open { border-color: #0a6e8759; background: rgba(255,255,255,0.85); }
+
+    .talk-head {
+      width: 100%; display: grid;
+      grid-template-columns: 1.85rem minmax(0, 1fr) auto auto auto;
+      align-items: center; gap: 0.9rem;
+      padding: 0.6rem 0.9rem 0.6rem 0.75rem;
+      font: inherit; color: inherit; text-align: left;
+      background: none; border: 0; cursor: pointer;
+    }
+    .talk-head:focus-visible { outline: 2px solid var(--crimson); outline-offset: -3px; }
+
+    .idx {
+      font-family: var(--font-mono); font-weight: 500;
+      font-size: 0.82rem; color: var(--crimson); opacity: 0.5;
+      text-align: center;
+    }
+
+    .body { min-width: 0; }
+    .talk .title { display: block; font-weight: 600; font-size: 0.97rem; letter-spacing: -0.01em; line-height: 1.25; }
+    .talk .desc {
+      display: block; color: var(--secondary); font-size: 0.78rem; line-height: 1.35; margin-top: 0.1rem;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    code {
+      font-family: var(--font-mono); font-size: 0.9em;
+      background: var(--accent-light); padding: 0.05em 0.3em; border-radius: 4px;
+    }
+
+    .date {
+      font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em;
+      text-transform: uppercase; white-space: nowrap;
+      color: var(--crimson); background: var(--accent-light);
+      border: 1px solid #0a6e8726; border-radius: 999px;
+      padding: 0.2em 0.65em;
+    }
+    .date--none {
+      color: var(--secondary); background: transparent;
+      border-color: var(--border); border-style: dashed;
+    }
+    .vers {
+      font-family: var(--font-mono); font-size: 0.66rem; color: var(--secondary);
+      white-space: nowrap; opacity: 0.75;
+    }
+    .chev {
+      font-size: 0.6rem; color: var(--crimson); line-height: 1;
+      transition: transform .18s ease;
+    }
+    .talk.is-open .chev { transform: rotate(180deg); }
+
+    /* ---------- Desplegable de versiones ---------- */
+    .panel {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows .22s ease;
+    }
+    .talk.is-open .panel { grid-template-rows: 1fr; }
+    .panel > div { overflow: hidden; }
+
+    .versions {
+      list-style: none; margin: 0; padding: 0 0.9rem 0.75rem 3.4rem;
+      display: flex; flex-direction: column; gap: 0.45rem;
+    }
+    .version {
+      display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: start; gap: 0.75rem;
+      border-top: 1px solid var(--border); padding-top: 0.55rem;
+    }
+    .vtag {
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500;
+      color: var(--crimson); border: 1px solid #0a6e8759; border-radius: 4px;
+      padding: 0.15em 0.4em; white-space: nowrap; margin-top: 0.05rem;
+    }
+    .version--last .vtag { background: var(--accent-light); }
+    .vdesc { font-size: 0.8rem; line-height: 1.35; }
+    .vmeta {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.4rem;
+      margin-top: 0.3rem;
+    }
+    .vmeta span, .vmeta li {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-mono); font-size: 0.66rem; color: var(--secondary);
+      background: rgba(255,255,255,0.55);
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 0.18em 0.6em;
+    }
+    .sessions { list-style: none; display: contents; margin: 0; padding: 0; }
+    .sessions .place { color: var(--text); }
+
+    .vactions { display: flex; gap: 0.35rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45em; padding: 0.32em 0.8em;
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.06em; text-decoration: none; white-space: nowrap;
+      color: var(--crimson); background: rgba(255,255,255,0.72);
+      border: 1px solid var(--border); border-radius: 7px;
+      transition: border-color .16s ease, background .16s ease;
+    }
+    .btn svg { width: 1.25em; height: 1.25em; flex: none; opacity: 0.9; }
+    .btn:hover { border-color: #0a6e8759; background: var(--accent-light); }
+    .btn--primary { color: #fff; background: var(--crimson); border-color: var(--crimson); }
+    .btn--primary:hover { color: #fff; background: #08596d; border-color: #08596d; }
+
+    .talk--pending { background: rgba(255,255,255,0.5); }
+    .talk--pending .title { color: var(--secondary); }
+    .talk--pending:hover .title, .talk--pending.is-open .title { color: var(--text); }
+
+    /* ---------- Buscador ---------- */
+    .search { position: relative; margin: 0 0 clamp(1.2rem, 3vh, 1.8rem); }
+    .search input {
+      width: 100%; font: inherit; font-size: 0.92rem; color: var(--text);
+      padding: 0.65rem 9.5rem 0.65rem 2.4rem;
+      background: rgba(255,255,255,0.8); border: 1px solid var(--border); border-radius: 10px;
+      transition: border-color .16s ease, box-shadow .16s ease;
+    }
+    .search input:focus { outline: none; border-color: #0a6e8759; box-shadow: 0 0 0 3px var(--accent-light); }
+    .search input::-webkit-search-cancel-button { display: none; }
+    .search svg {
+      position: absolute; left: 0.8rem; top: 50%; width: 1rem; height: 1rem;
+      transform: translateY(-50%); color: var(--secondary); pointer-events: none;
+    }
+    .search-actions {
+      position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%);
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+    .search-clear {
+      font: inherit; font-size: 1rem; line-height: 1; color: var(--secondary);
+      background: none; border: 0; padding: 0.3rem 0.45rem; cursor: pointer; border-radius: 6px;
+    }
+    .search-global {
+      font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--secondary); background: transparent;
+      border: 1px solid var(--border); border-radius: 7px; padding: 0.32em 0.7em; cursor: pointer;
+      transition: border-color .16s ease, background .16s ease, color .16s ease;
+    }
+    .search-global:hover { color: var(--crimson); border-color: #0a6e8759; background: var(--accent-light); }
+    .search-global[aria-pressed="true"] { color: #fff; background: var(--crimson); border-color: var(--crimson); }
+    .search-global:focus-visible { outline: 2px solid var(--crimson); outline-offset: 2px; }
+    .search-clear:hover { color: var(--crimson); background: var(--accent-light); }
+    .search-clear[hidden] { display: none; }
+
+    .results[hidden], #app[hidden] { display: none; }
+    .results-status {
+      font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em;
+      color: var(--secondary); margin: 0 0 0.7rem; padding: 0 0.2rem;
+    }
+    .hit-deck {
+      background: rgba(255,255,255,0.72); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.6rem 0.9rem 0.4rem; margin-bottom: 0.5rem;
+    }
+    .hit-deck-head { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.25rem; }
+    .hit-deck-head .title { font-weight: 600; font-size: 0.95rem; }
+    .hit-deck-head .vtag { margin-top: 0; }
+    .hit-deck-head .n { margin-left: auto; font-family: var(--font-mono); font-size: 0.66rem; color: var(--secondary); white-space: nowrap; }
+    .hit {
+      display: grid; grid-template-columns: 4.6rem minmax(0, 1fr); gap: 0.6rem;
+      padding: 0.45rem 0.4rem; border-top: 1px solid var(--border);
+      color: inherit; text-decoration: none; border-radius: 6px;
+    }
+    .hit:hover { background: var(--accent-light); }
+    .hit-num { font-family: var(--font-mono); font-size: 0.68rem; color: var(--crimson); padding-top: 0.12rem; }
+    .hit-title { display: block; font-size: 0.82rem; font-weight: 600; }
+    .hit-snip { display: block; font-size: 0.78rem; line-height: 1.4; color: var(--secondary); }
+    .hit mark { background: #0a6e872e; color: var(--text); border-radius: 3px; padding: 0 0.1em; }
+
+    /* ---------- Pie ---------- */
+    footer {
+      margin-top: clamp(1.6rem, 4vh, 2.4rem); text-align: center;
+      color: var(--secondary); font-size: 0.76rem;
+    }
+    footer code { color: var(--crimson); }
+
+    @media (max-width: 640px) {
+      .talk-head { grid-template-columns: 1.6rem minmax(0, 1fr) auto auto; gap: 0.6rem; }
+      .talk .desc, .vers { display: none; }
+      .versions { padding-left: 1rem; }
+      .version { grid-template-columns: auto minmax(0, 1fr); }
+      .vactions { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="eyebrow">Slides Creator</p>
+      <h1>Presentaciones</h1>
+      <p class="subtitle">Charlas sobre IA, ingeniería agéntica y forma de trabajar.</p>
+    </header>
+
+    <div class="search" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Buscar por título o descripción" aria-label="Buscar por título o descripción de las presentaciones" autocomplete="off">
+      <div class="search-actions">
+        <button type="button" class="search-clear" id="q-clear" aria-label="Borrar búsqueda" hidden>✕</button>
+        <button type="button" class="search-global" id="q-global" aria-pressed="false" title="Buscar también dentro del contenido de las slides">Contenido</button>
+      </div>
+    </div>
+
+    <section class="results" id="results" aria-live="polite" hidden></section>
+
+    <main id="app"></main>
+
+    <footer>
+      Cada charla agrupa sus versiones. Despliega una para verla, descargarla en PDF
+      y consultar dónde se presentó.
+    </footer>
+  </div>
+
+  <script>
+    /* ==================================================================
+       ÚNICO SITIO QUE HAY QUE TOCAR: una entrada por CHARLA, sin duplicar
+       por versión.
+         · versions → de más nueva a más antigua. `v` es el número de
+                      versión y `dir` la carpeta (sin sufijo -vN = v0).
+         · sessions → dónde y cuándo se presentó ESA versión, la más
+                      reciente arriba. Sin sesiones = borrador.
+         · title    → el título del índice; no tiene que coincidir con el
+                      de la portada de la deck.
+       La numeración y la fecha de la última sesión se calculan solos.
+       ================================================================== */
+    const CHARLAS = [
+      {
+        title: "Presentación base",
+        desc: "Catálogo de las visualizaciones disponibles: punto de partida para una deck nueva.",
+        versions: [
+          {
+            v: 0, dir: "_plantilla", slides: 14,
+            desc: "Deck base con un ejemplo de cada patrón de slide.",
+            sessions: [],
+          },
+        ],
+      },
+    ];
+
+    // ------------------------------------------------------------------
+    const fecha = (iso) => iso.split("-").reverse().join("/");
+    const plural = (n, uno, varios) => n + " " + (n === 1 ? uno : varios);
+    const ultimaSesion = (charla) =>
+      charla.versions.flatMap((v) => v.sessions).map((s) => s.date).sort().pop();
+
+    const svg = (paths) =>
+      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"` +
+      ` stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+    const ICONO_VER = svg(
+      '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="m10 8 5 3-5 3z"/>' +
+      '<path d="M12 17v4"/><path d="M8 21h8"/>'
+    );
+    const ICONO_PDF = svg(
+      '<path d="M12 3v12"/><path d="m7 10 5 5 5-5"/>' +
+      '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>'
+    );
+
+    function pintarVersion(version, esUltima) {
+      const li = document.createElement("li");
+      li.className = "version" + (esUltima ? " version--last" : "");
+
+      const tag = document.createElement("span");
+      tag.className = "vtag";
+      tag.textContent = "v" + version.v;
+
+      const cuerpo = document.createElement("div");
+      const desc = document.createElement("div");
+      desc.className = "vdesc";
+      desc.innerHTML = version.desc;
+
+      const meta = document.createElement("div");
+      meta.className = "vmeta";
+      const slides = document.createElement("span");
+      slides.textContent = plural(version.slides, "slide", "slides");
+      meta.appendChild(slides);
+
+      if (version.sessions.length) {
+        const ul = document.createElement("ul");
+        ul.className = "sessions";
+        version.sessions.forEach((s) => {
+          const item = document.createElement("li");
+          const cuando = document.createElement("time");
+          cuando.dateTime = s.date;
+          cuando.textContent = fecha(s.date);
+          const donde = document.createElement("span");
+          donde.className = "place";
+          donde.textContent = s.place;
+          item.append(cuando, donde);
+          ul.appendChild(item);
+        });
+        meta.appendChild(ul);
+      } else {
+        const pendiente = document.createElement("span");
+        pendiente.textContent = "Sin presentar";
+        meta.appendChild(pendiente);
+      }
+      cuerpo.append(desc, meta);
+
+      const acciones = document.createElement("div");
+      acciones.className = "vactions";
+      const ver = document.createElement("a");
+      ver.className = "btn btn--primary";
+      ver.href = version.dir + "/index.html";
+      ver.innerHTML = ICONO_VER + "Ver presentación";
+      const pdf = document.createElement("a");
+      pdf.className = "btn";
+      pdf.href = version.dir + "/index.html?print=1";
+      pdf.target = "_blank";
+      pdf.rel = "noopener";
+      pdf.innerHTML = ICONO_PDF + "Descargar PDF";
+      acciones.append(ver, pdf);
+
+      li.append(tag, cuerpo, acciones);
+      return li;
+    }
+
+    function pintarCharla(charla, indice, prefijo = "charla") {
+      const ultima = ultimaSesion(charla);
+      const id = prefijo + "-" + indice;
+
+      const article = document.createElement("article");
+      article.className = "talk" + (ultima ? "" : " talk--pending");
+
+      const head = document.createElement("button");
+      head.type = "button";
+      head.className = "talk-head";
+      head.setAttribute("aria-expanded", "false");
+      head.setAttribute("aria-controls", id);
+
+      const idx = document.createElement("span");
+      idx.className = "idx";
+      idx.textContent = String(indice + 1).padStart(2, "0");
+
+      const cuerpo = document.createElement("span");
+      cuerpo.className = "body";
+      const titulo = document.createElement("span");
+      titulo.className = "title";
+      titulo.textContent = charla.title;
+      const desc = document.createElement("span");
+      desc.className = "desc";
+      desc.innerHTML = charla.desc;
+      cuerpo.append(titulo, desc);
+
+      const versiones = document.createElement("span");
+      versiones.className = "vers";
+      versiones.textContent = plural(charla.versions.length, "versión", "versiones");
+
+      const estado = document.createElement("span");
+      estado.className = "date" + (ultima ? "" : " date--none");
+      estado.textContent = ultima ? fecha(ultima) : "No presentada";
+
+      const chev = document.createElement("span");
+      chev.className = "chev";
+      chev.setAttribute("aria-hidden", "true");
+      chev.textContent = "▼";
+
+      head.append(idx, cuerpo, versiones, estado, chev);
+
+      const panel = document.createElement("div");
+      panel.className = "panel";
+      panel.id = id;
+      const interior = document.createElement("div");
+      const lista = document.createElement("ul");
+      lista.className = "versions";
+      charla.versions.forEach((v, i) => lista.appendChild(pintarVersion(v, i === 0)));
+      interior.appendChild(lista);
+      panel.appendChild(interior);
+
+      head.addEventListener("click", () => {
+        const abierto = article.classList.toggle("is-open");
+        head.setAttribute("aria-expanded", String(abierto));
+      });
+
+      article.append(head, panel);
+      return article;
+    }
+
+    const app = document.getElementById("app");
+    const lista = document.createElement("nav");
+    lista.className = "list";
+    CHARLAS.forEach((c, i) => lista.appendChild(pintarCharla(c, i)));
+    app.appendChild(lista);
+
+    // ---------------------------------------------------------- Buscador
+    // Se cargan las decks la primera vez que se escribe; las slides cuentan como en deck.js (#N).
+    const quitarTildes = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    let indice = null;
+
+    function cargarIndice() {
+      if (indice) return indice;
+      const versiones = CHARLAS.flatMap((c) => c.versions.map((v) => ({ charla: c.title, v: v.v, dir: v.dir })));
+      indice = Promise.all(versiones.map(async (ver) => {
+        try {
+          const res = await fetch(ver.dir + "/index.html");
+          if (!res.ok) return null;
+          const doc = new DOMParser().parseFromString(await res.text(), "text/html");
+          ver.slides = [...doc.querySelectorAll("section.slide")].map((s, i) => {
+            const texto = s.textContent.replace(/\s+/g, " ").trim();
+            const h = s.querySelector("h1, h2, h3");
+            // índice carácter a carácter para poder recortar el fragmento sobre el texto original
+            let norm = ""; const mapa = [];
+            for (let k = 0; k < texto.length; k++) {
+              const c = quitarTildes(texto[k]);
+              norm += c; for (let j = 0; j < c.length; j++) mapa.push(k);
+            }
+            return { n: i + 1, titulo: h ? h.textContent.replace(/\s+/g, " ").trim() : "", texto, norm, mapa };
+          });
+          return ver;
+        } catch (_) { return null; }
+      })).then((r) => r.filter(Boolean));
+      return indice;
+    }
+
+    function fragmento(slide, pos, largo) {
+      const ini = slide.mapa[pos], fin = slide.mapa[pos + largo - 1] + 1;
+      const desde = Math.max(0, ini - 70), hasta = Math.min(slide.texto.length, fin + 90);
+      const span = document.createElement("span");
+      span.className = "hit-snip";
+      const mark = document.createElement("mark");
+      mark.textContent = slide.texto.slice(ini, fin);
+      span.append((desde > 0 ? "…" : "") + slide.texto.slice(desde, ini), mark,
+                  slide.texto.slice(fin, hasta) + (hasta < slide.texto.length ? "…" : ""));
+      return span;
+    }
+
+    const q = document.getElementById("q");
+    const qClear = document.getElementById("q-clear");
+    const qGlobal = document.getElementById("q-global");
+    const results = document.getElementById("results");
+    let ultimaConsulta = 0;
+    let buscarEnContenido = false;
+
+    async function buscar() {
+      const termino = q.value.trim();
+      qClear.hidden = !q.value;
+      const activo = termino.length >= 2;
+      results.hidden = !activo;
+      app.hidden = activo;
+      if (!activo) { results.replaceChildren(); return; }
+
+      const id = ++ultimaConsulta;
+      if (!buscarEnContenido) { buscarFichas(termino); return; }
+
+      if (!indice) {
+        const cargando = document.createElement("p");
+        cargando.className = "results-status";
+        cargando.textContent = "Buscando…";
+        results.replaceChildren(cargando);
+      }
+      const versiones = await cargarIndice();
+      if (id !== ultimaConsulta) return;
+
+      const aguja = quitarTildes(termino);
+      const bloques = [];
+      let total = 0;
+      versiones.forEach((ver) => {
+        const hits = [];
+        ver.slides.forEach((s) => {
+          const pos = s.norm.indexOf(aguja);
+          if (pos < 0) return;
+          const veces = s.norm.split(aguja).length - 1;
+          total += veces;
+          const a = document.createElement("a");
+          a.className = "hit";
+          a.href = ver.dir + "/index.html#" + s.n;
+          const num = document.createElement("span");
+          num.className = "hit-num";
+          num.textContent = "Slide " + s.n + (veces > 1 ? " · ×" + veces : "");
+          const cuerpo = document.createElement("span");
+          const tit = document.createElement("span");
+          tit.className = "hit-title";
+          tit.textContent = s.titulo || "(sin titular)";
+          cuerpo.append(tit, fragmento(s, pos, aguja.length));
+          a.append(num, cuerpo);
+          hits.push(a);
+        });
+        if (!hits.length) return;
+        const bloque = document.createElement("div");
+        bloque.className = "hit-deck";
+        const head = document.createElement("div");
+        head.className = "hit-deck-head";
+        const tag = document.createElement("span");
+        tag.className = "vtag";
+        tag.textContent = "v" + ver.v;
+        const tit = document.createElement("span");
+        tit.className = "title";
+        tit.textContent = ver.charla;
+        const n = document.createElement("span");
+        n.className = "n";
+        n.textContent = plural(hits.length, "slide", "slides");
+        head.append(tit, tag, n);
+        bloque.append(head, ...hits);
+        bloques.push(bloque);
+      });
+
+      const estado = document.createElement("p");
+      estado.className = "results-status";
+      estado.textContent = bloques.length
+        ? plural(total, "coincidencia", "coincidencias") + " en " + plural(bloques.length, "presentación", "presentaciones")
+        : "Sin resultados para «" + termino + "»";
+      results.replaceChildren(estado, ...bloques);
+    }
+
+    // Búsqueda por título y descripción de cada charla (sin tildes ni HTML).
+    function buscarFichas(termino) {
+      const aguja = quitarTildes(termino);
+      const sinHtml = (h) => h.replace(/<[^>]+>/g, "");
+      const hallados = CHARLAS.map((c, i) => ({ c, i }))
+        .filter(({ c }) => quitarTildes(c.title + " " + sinHtml(c.desc)).includes(aguja));
+
+      const estado = document.createElement("p");
+      estado.className = "results-status";
+      estado.textContent = (hallados.length
+        ? plural(hallados.length, "charla", "charlas")
+        : "Sin resultados para «" + termino + "»") + " · «Contenido» busca dentro de las slides";
+      const lista = document.createElement("nav");
+      lista.className = "list";
+      hallados.forEach(({ c, i }) => lista.appendChild(pintarCharla(c, i, "res")));
+      results.replaceChildren(estado, lista);
+    }
+
+    let espera;
+    q.addEventListener("input", () => { clearTimeout(espera); espera = setTimeout(buscar, 150); });
+    q.addEventListener("keydown", (e) => { if (e.key === "Escape") { q.value = ""; buscar(); } });
+    qClear.addEventListener("click", () => { q.value = ""; buscar(); q.focus(); });
+    qGlobal.addEventListener("click", () => {
+      buscarEnContenido = !buscarEnContenido;
+      qGlobal.setAttribute("aria-pressed", String(buscarEnContenido));
+      q.placeholder = buscarEnContenido
+        ? "Buscar en el contenido de todas las presentaciones"
+        : "Buscar por título o descripción";
+      buscar();
+      q.focus();
+    });
+  </script>
+</body>
+</html>
