@@ -1,0 +1,51 @@
+.gitignore
+  s_0fb3c5c310d2a6::t_41b6c7446afa2d 1-10
+README.md
+  s_0fb3c5c310d2a6::t_def9ed9cae217e 1-10
+presentaciones/_plantilla/index.html
+  s_de43d91ec578db::t_a4eb70f904fbae 1-270
+presentaciones/index.html
+  s_0fb3c5c310d2a6::t_7d7aaeb8add44e 1-614
+presentaciones/shared/css/deck.css
+  s_0fb3c5c310d2a6::t_9487157411d6bc 1-875
+presentaciones/shared/css/fonts.css
+  s_0fb3c5c310d2a6::t_4c50c6351284d0 1-161
+presentaciones/shared/fonts/README.txt
+  s_0fb3c5c310d2a6::t_8396dbfb9847c6 1-13
+presentaciones/shared/img/README.txt
+  s_0fb3c5c310d2a6::t_eae27733b4a604 1-6
+presentaciones/shared/img/logos/indra-group.svg
+  s_0fb3c5c310d2a6::t_5af4b6fb3cee77 1-7
+presentaciones/shared/img/logos/indra.svg
+  s_0fb3c5c310d2a6::t_2f4d297b3a3617 1-11
+presentaciones/shared/img/logos/minsait.svg
+  s_0fb3c5c310d2a6::t_fbb6624beb0200 1-7
+presentaciones/shared/js/deck.js
+  s_0fb3c5c310d2a6::t_cc94146d016dbe 1-333
+tools/comparar_decks.py
+  s_0fb3c5c310d2a6::t_fd6c5477582da0 1-413
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.6",
+  "base_commit_sha": "25d4e67b947cf3e1863554c392c67a9bb4dc3e4c",
+  "prompts": {},
+  "sessions": {
+    "s_0fb3c5c310d2a6": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "31cfaf9d-24e8-4fd1-89c2-debe6d92a3ec",
+        "model": "claude-sonnet-5.5"
+      },
+      "human_author": "Ricardo Recarey <ricardorfe@ext.inditex.com>"
+    },
+    "s_de43d91ec578db": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "691b0cf7-296c-4f34-bf02-557f54198980",
+        "model": "unknown"
+      },
+      "human_author": "Ricardo Recarey <ricardorfe@ext.inditex.com>"
+    }
+  }
+}
